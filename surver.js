@@ -1,15 +1,54 @@
-const express = require('express');
-const app = express();
+const http = require('http');
+const fs = require('fs');
 const path = require('path');
 
-// Serve static files from the folder (for example, Project-V)
-app.use(express.static(path.join('C:/Project-V')));
+// Folder where your HTML, JS, CSS are located
+const baseDir = 'C:/Project-V';
 
-// Optional: explicitly send index.html when root URL is visited
-app.get('/', (req, res) => {
-  res.sendFile(path.join('C:/Project-V', 'index.html'));
+const server = http.createServer((req, res) => {
+    // Default to index.html if no file is specified
+    let filePath = req.url === '/' ? path.join(baseDir, 'index.html') : path.join(baseDir, req.url);
+
+    // Get the file extension to determine content type
+    const extname = String(path.extname(filePath)).toLowerCase();
+    const mimeTypes = {
+        '.html': 'text/html',
+        '.js': 'application/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpg',
+        '.gif': 'image/gif',
+        '.svg': 'image/svg+xml'
+    };
+
+    const contentType = mimeTypes[extname] || 'application/octet-stream';
+
+    fs.readFile(filePath, (error, content) => {
+        if (error) {
+            if (error.code === 'ENOENT') {
+                // File not found
+                res.writeHead(404, { 'Content-Type': 'index.html' });
+                res.end('<h1>404 Not Found</h1>', 'utf-8');
+            } else {
+                // Other server error
+                res.writeHead(500);
+                res.end(`Server Error: ${error.code}`);
+            }
+        } else {
+            // Success
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.end(content, 'utf-8');
+        }
+    });
 });
 
+<<<<<<< HEAD
 app.listen(5000, () => {
   console.log('Server is running on http://localhost:5000');
+=======
+server.listen(8088, () => {
+    console.log('Server is running at http://localhost:8088');
+>>>>>>> cde90ea50f514bff5cda3327148c05f95757be19
 });
+
