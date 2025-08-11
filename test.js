@@ -33,6 +33,6 @@ app.listen(port, () => {
 }   );
 
 
-//curl -X POST http://localhost:3050/resource -H "Content-Type:application/json" -d '{"name":"Test","value":"123"}'
+//curl -X POST http://localhost:3050/resource -H "Content-Type: application/json" -d "{\"name\":\"Test\", \"value\":\"123\"}"
 //curl -X GET http://localhost:3050/resource
 //curl -X DELETE http://localhost:3050/resource/1

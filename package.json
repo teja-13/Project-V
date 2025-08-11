@@ -1,5 +1,22 @@
 {
   "dependencies": {
     "express": "^5.1.0"
-  }
+  },
+  "name": "project-v",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teja-13/Project-V.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teja-13/Project-V/issues"
+  },
+  "homepage": "https://github.com/teja-13/Project-V#readme",
+  "description": ""
 }
